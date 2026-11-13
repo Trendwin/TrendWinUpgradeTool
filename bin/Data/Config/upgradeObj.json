@@ -1,0 +1,13 @@
+[
+    
+    {
+        "Product": "功率驱动板",
+        "ID": 2,
+        "Prefix": "TrendOne_APP"
+    },
+    {
+        "Product": "通讯拓展板",
+        "ID": 3,
+        "Prefix": "TrendOne_Comm"
+    }
+]

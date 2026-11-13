@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Page/MenuPage/qml/ctrlMenuWidget.qml</file>
+        <file>Page/qml/StatusBarWidget.qml</file>
+        <file>Page/MenuPage/qml/CtrlMenuWidget_Res.qml</file>
+        <file>Login/qml/LogInDlg.qml</file>
+        <file>qml/Configs_Res.qml</file>
+        <file>Page/CtrlPage/qml/UpgradePage.qml</file>
+        <file>Page/CtrlPage/qml/CommonWiget_Res.qml</file>
+        <file>Page/CtrlPage/qml/aboutWiget.qml</file>
+    </qresource>
+</RCC>
