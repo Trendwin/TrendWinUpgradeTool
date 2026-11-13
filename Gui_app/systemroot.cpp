@@ -8,7 +8,6 @@
 #include "systempreset.h"
 #include "upgradeObj_config.h"
 #include "upgradectrlmgr.h"
-#include "loginDlg.h"
 SystemRoot::SystemRoot(QObject *parent) :
     QObject(parent),
     mp_FilePathMgr(nullptr),
@@ -38,22 +37,9 @@ SystemRoot::~SystemRoot()
 
 bool SystemRoot::Start()
 {
-    //![登录]
-    bool ret = Login();
-    if(ret)
-    {
-        mp_Analyzer = new AnalyzerWinFrame(mp_FilePathMgr, mp_lngMgr, this->mp_upgradeMgr);
-        mp_Analyzer->show();
-    }
-    return ret;
-}
-
-bool SystemRoot::Login()
-{
-//    return true;
-    LogInDlg *pLogin = new LogInDlg(this->mp_lngMgr);
-    pLogin->exec();
-    return pLogin->LogInResult();
+    mp_Analyzer = new AnalyzerWinFrame(mp_FilePathMgr, mp_lngMgr, this->mp_upgradeMgr);
+    mp_Analyzer->show();
+    return true;
 }
 
 void SystemRoot::Initialization()

@@ -17,7 +17,6 @@ public:
 signals:
     void sigStartBoot(bool &ret);
 protected:
-    bool Login();
     void Initialization();
 private:
     FilePathMgr* mp_FilePathMgr;

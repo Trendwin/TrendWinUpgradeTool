@@ -47,16 +47,14 @@ public slots:
 protected:
     void Init();
     void RefreshUpgradeFile();
-    QString GetUpgradeFilePath(QString productType);
-    bool EnumUpGradeFile(QString productType);
+    QString GetUpgradeFilePath();
+    bool EnumUpGradeFile();
     void RefreshCtrlButton();
     void HandleVersionMsg(QByteArray msg);
     QString ASCII_2_Str(quint8 ch);
 private slots:
 
     void on_btnRefreshUpgradeFile_clicked();
-
-    void on_upobj_combox_currentIndexChanged(int index);
 
     void on_btn_StartUpgrade_clicked();
 

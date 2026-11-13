@@ -13,7 +13,6 @@ DEFINES += QT_QML_DEBUG_NO_WARNING
 
 INCLUDEPATH += $$PWD/../Language \
                $$PWD/../Logger \
-               $$PWD/../UserLogin \
                $$PWD/../Core \
                $$PWD/../Core/Base \
                $$PWD/FilePath \
@@ -26,8 +25,7 @@ INCLUDEPATH += $$PWD/../Language \
                $$PWD/Page/MenuPage \
                $$PWD/Page/CtrlPage \
                $$PWD/Page/MainPage \
-               $$PWD/Page/CmdPage \
-               $$PWD/Login \
+               $$PWD/Page/CmdPage
 
 
 
@@ -36,7 +34,6 @@ CONFIG(debug, debug|release){
     DESTDIR = $$absolute_path($${_PRO_FILE_PWD_}/../bin/Debug/)
     LIBS += -L$$DESTDIR/ -llanguaged \
             -L$$DESTDIR/ -lloggerd \
-            -L$$DESTDIR/ -luserlogind \
             -L$$DESTDIR/ -lCored \
             -L$$DESTDIR/ -lpresetd \
             -L$$DESTDIR/ -lutilityd \
@@ -49,7 +46,6 @@ CONFIG(debug, debug|release){
     DESTDIR = $$absolute_path($${_PRO_FILE_PWD_}/../bin/Release/)
     LIBS += -L$$DESTDIR/ -llanguage \
             -L$$DESTDIR/ -llogger \
-            -L$$DESTDIR/ -luserlogin \
             -L$$DESTDIR/ -lCore \
             -L$$DESTDIR/ -lpreset \
             -L$$DESTDIR/ -lutility \
@@ -64,7 +60,6 @@ CONFIG(debug, debug|release){
 SOURCES += \
     AnalyzerWinFrame.cpp \
     FilePath/filepathmgr.cpp \
-    Login/loginDlg.cpp \
     Page/CtrlPage/aboutPage.cpp \
     Page/CtrlPage/systemsettingpage.cpp \
     Page/CtrlPage/upgradepage.cpp \
@@ -81,7 +76,6 @@ HEADERS += \
     AnalyzerWinFrame.h \
     FilePath/filepathmgr.h \
     Gui_def.h \
-    Login/loginDlg.h \
     Page/CtrlPage/aboutPage.h \
     Page/CtrlPage/systemsettingpage.h \
     Page/CtrlPage/upgradepage.h \
@@ -111,7 +105,6 @@ RESOURCES += \
     qRc.qrc
 
 DISTFILES += \
-    Login/LogInDlg.qml \
     Page/CtrlPage/qml/UpgradePage.qml
 
 

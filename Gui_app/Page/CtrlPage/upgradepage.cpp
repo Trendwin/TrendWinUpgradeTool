@@ -11,6 +11,10 @@
 #include "cc_def.h"
 #include <QString>
 
+namespace {
+const QString PowerBoardType = QStringLiteral("功率驱动板");
+}
+
 UpgradePage::UpgradePage(FilePathMgr* pFilePathMgr, LanguageManager *plngMgr, UpGradeCtrlMgr *p_ugradeMgr, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::UpgradePage)
@@ -46,14 +50,6 @@ void UpgradePage::On_HandleMessage(QByteArray msg)
 void UpgradePage::Init()
 {
     m_upgradefile_map.clear();
-    QMap<QString, Config_Obj*> up_obj_map = UpGradeObj_Config::Instance()->GetConfig_Objs();
-    QList<QString> obj_keys = up_obj_map.keys();
-    qint16 i = 0;
-    foreach(QString obj, obj_keys)
-    {
-        this->ui->upobj_combox->insertItem(i++, obj);
-    }
-
     this->ui->upgrade_rogressBar->setVisible(false);
     this->ui->upgrade_rogressBar->setMinimum(0);
     this->ui->upgrade_rogressBar->setMaximum(100);
@@ -70,38 +66,37 @@ void UpgradePage::Init()
 
 void UpgradePage::RefreshUpgradeFile()
 {
-    QString productType = this->ui->upobj_combox->currentText();
-    QString fileDir = "";
-    if((!productType.isNull()) && (!productType.isEmpty()))
-    {
-        this->ui->upBinFile_combox->clear();
+    this->ui->upBinFile_combox->clear();
 
-        if(this->EnumUpGradeFile(productType))
+    if(this->EnumUpGradeFile())
+    {
+        QList<QString> fileNameList = m_upgradefile_map.keys();
+        for(int i = 0; i < fileNameList.count(); ++i)
         {
-            QList<QString> fileNameList = m_upgradefile_map.keys();
-            for(int i = 0; i < fileNameList.count(); ++i)
-            {
-                this->ui->upBinFile_combox->insertItem(i, fileNameList.at(i));
-            }
+            this->ui->upBinFile_combox->insertItem(i, fileNameList.at(i));
         }
     }
 }
 
-QString UpgradePage::GetUpgradeFilePath(QString productType)
+QString UpgradePage::GetUpgradeFilePath()
 {
-    return QString("%1/%2").arg(this->mp_filePathMgr->GetUpGradeFilePath()).arg(productType);
+    return QString("%1/%2").arg(this->mp_filePathMgr->GetUpGradeFilePath()).arg(PowerBoardType);
 }
 
 // 不遍历子文件夹
-bool UpgradePage::EnumUpGradeFile(QString productType)
+bool UpgradePage::EnumUpGradeFile()
 {
-    QString fileDir = this->GetUpgradeFilePath(productType);
+    QString fileDir = this->GetUpgradeFilePath();
     QDir updir(fileDir);
     m_upgradefile_map.clear();
 
     if(updir.exists(fileDir))
     {
-        const Config_Obj *pConfigObj = UpGradeObj_Config::Instance()->GetConfigObj(productType);
+        const Config_Obj *pConfigObj = UpGradeObj_Config::Instance()->GetConfigObj(PowerBoardType);
+        if(nullptr == pConfigObj)
+        {
+            return false;
+        }
         QStringList filters;
         filters<<QString("*.bin");
         updir.setFilter (QDir::Files | QDir::NoSymLinks); // 设置类型过滤器，只为文件格式
@@ -258,18 +253,10 @@ void UpgradePage::on_btnRefreshUpgradeFile_clicked()
 }
 
 
-void UpgradePage::on_upobj_combox_currentIndexChanged(int index)
-{
-    RefreshUpgradeFile();
-}
-
-
 void UpgradePage::on_btn_StartUpgrade_clicked()
 {
     QString upgradeFile = this->ui->upBinFile_combox->currentText();
-    QString produteType = this->ui->upobj_combox->currentText();
-
-    if(upgradeFile.isNull() || upgradeFile.isEmpty() || produteType.isNull() || produteType.isEmpty())
+    if(upgradeFile.isNull() || upgradeFile.isEmpty())
     {
         return;
     }
@@ -278,14 +265,13 @@ void UpgradePage::on_btn_StartUpgrade_clicked()
     this->ui->lineEdit_upgradeStatus->setText("");
     this->ui->lineEdit_upgrade_precentage->setText("");
     QString upgradeFilePath = "";
-    quint8 devID = UpGradeObj_Config::Instance()->GetTypeID(produteType);
     if(this->m_upgradefile_map.contains(upgradeFile))
     {
         upgradeFilePath = this->m_upgradefile_map.value(upgradeFile);
         this->ui->upgrade_rogressBar->setValue(0);
         this->ui->upgrade_rogressBar->setVisible(true);
         this->ui->lineEdit_upgradeStatus->setText(mp_lngMgr->trs("IDS_START_UPGRADE"));
-        emit sigStartUpgrade(upgradeFilePath, devID);
+        emit sigStartUpgrade(upgradeFilePath, Dev_Driver);
     }
 }
 
@@ -356,8 +342,6 @@ void UpgradePage::on_RefreshUpGradeResult(UpGradeCtrlMgr::UpGrade_Result_Def up_
 
 void UpgradePage::on_btnQueryVersion_clicked()
 {
-    QString produteType = this->ui->upobj_combox->currentText();
-    quint8 devID = UpGradeObj_Config::Instance()->GetTypeID(produteType);
-    emit sigQueryVersion(devID);
+    emit sigQueryVersion(Dev_Driver);
 }
 
