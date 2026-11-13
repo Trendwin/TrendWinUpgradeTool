@@ -7,7 +7,6 @@ SUBDIRS += \
          Language \
          Logger \
          Preset \
-         UserLogin \
          Utility \
          cc \
 
