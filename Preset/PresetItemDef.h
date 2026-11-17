@@ -31,6 +31,7 @@ public:
         PRT_COMM,                  //![串口号]
         PRT_AD_COMM,               //![AD模块串口号]
         PRT_Language,              //![语言]
+        PRT_DeviceID,              //![报文目标设备ID]
     };
     Q_ENUM(Key)
 

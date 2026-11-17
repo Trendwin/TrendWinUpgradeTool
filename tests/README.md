@@ -2,8 +2,11 @@
 
 This Qt Test target exercises the real upgrade page and startup flow without
 opening a serial port or flashing a board. It covers removal of the board
-selector, power-board firmware filtering and refresh, target ID `0x02` for
-upgrade and version queries, an empty firmware list, and startup without login.
+selector, power-board firmware filtering and refresh, the default target ID
+`0x02`, custom target IDs (including `0x00` and `0xFF`) for upgrade and version
+queries, persistence/reload and invalid saved settings, an empty firmware list,
+and startup without login. Device-ID settings are exercised in temporary preset
+directories, without changing the user's saved device ID.
 
 Build the release libraries first using the same Qt kit as the application:
 `Configs`, `Utility`, `Preset`, `Logger`, `Language`, `cc`, then `Core`.

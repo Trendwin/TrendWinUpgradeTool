@@ -115,6 +115,71 @@
     <string>Close</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label_DeviceID">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>142</y>
+     <width>120</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>设备 ID</string>
+   </property>
+   <property name="buddy">
+    <cstring>spin_DeviceID</cstring>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spin_DeviceID">
+   <property name="geometry">
+    <rect>
+     <x>158</x>
+     <y>142</y>
+     <width>121</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>报文目标设备 ID，修改后自动保存，下次操作生效。</string>
+   </property>
+   <property name="keyboardTracking">
+    <bool>false</bool>
+   </property>
+   <property name="prefix">
+    <string>0x</string>
+   </property>
+   <property name="maximum">
+    <number>255</number>
+   </property>
+   <property name="value">
+    <number>2</number>
+   </property>
+   <property name="displayIntegerBase">
+    <number>16</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_DeviceIDHint">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>142</y>
+     <width>280</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>范围：0x00～0xFF，修改后自动保存</string>
+   </property>
+  </widget>
  </widget>
  <resources>
   <include location="../../Resource.qrc"/>

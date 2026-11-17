@@ -15,6 +15,7 @@ public:
     static SystemPreset *Instance();
     virtual ~SystemPreset();
     void Release();
+    quint8 GetDeviceID();
 protected:
     virtual void RegisterAll();
 
