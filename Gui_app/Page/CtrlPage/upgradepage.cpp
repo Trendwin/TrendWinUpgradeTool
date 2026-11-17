@@ -3,6 +3,7 @@
 #include "languageManager.h"
 #include "upgradeObj_config.h"
 #include "config_obj.h"
+#include "systempreset.h"
 #include "filepathmgr.h"
 #include <QMap>
 #include <QList>
@@ -271,7 +272,7 @@ void UpgradePage::on_btn_StartUpgrade_clicked()
         this->ui->upgrade_rogressBar->setValue(0);
         this->ui->upgrade_rogressBar->setVisible(true);
         this->ui->lineEdit_upgradeStatus->setText(mp_lngMgr->trs("IDS_START_UPGRADE"));
-        emit sigStartUpgrade(upgradeFilePath, Dev_Driver);
+        emit sigStartUpgrade(upgradeFilePath, SystemPreset::Instance()->GetDeviceID());
     }
 }
 
@@ -342,6 +343,6 @@ void UpgradePage::on_RefreshUpGradeResult(UpGradeCtrlMgr::UpGrade_Result_Def up_
 
 void UpgradePage::on_btnQueryVersion_clicked()
 {
-    emit sigQueryVersion(Dev_Driver);
+    emit sigQueryVersion(SystemPreset::Instance()->GetDeviceID());
 }
 

@@ -28,6 +28,11 @@ void SystemSettingPage::Init()
     this->ui->btnClose->setText(this->mp_lngMgr->trs("IDS_CLOSE"));
 
     InitComPort();
+    this->ui->spin_DeviceID->setValue(SystemPreset::Instance()->GetDeviceID());
+    connect(this->ui->spin_DeviceID, QOverload<int>::of(&QSpinBox::valueChanged),
+            this, [](int value) {
+        SystemPreset::Instance()->SetValue(CPreset::PRT_DeviceID, value);
+    });
     RefreshComCtrlButtonState(false);
 }
 
